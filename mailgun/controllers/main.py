@@ -22,7 +22,7 @@ class MailMailgun(http.Controller):
         if not signature:
             return False
 
-        api_key = request.env['ir.config_parameter'].search([
+        api_key = request.env['ir.config_parameter'].sudo().search([
             ('key', '=', 'mailgun.apikey')
         ], limit=1)
 
