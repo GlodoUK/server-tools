@@ -1,7 +1,7 @@
 {
     "version": "12.0.1.0.0",
-    "name": "with_savepoint_retryablejoberror",
-    "summary": "Technical module that provides a with_savepoint_retryablejoberror decorator",
+    "name": "with_savepoint_decorator",
+    "summary": "Technical module that provides a with_savepoint decorator",
     "category": "Hidden",
     "images": [],
     "application": True,
