@@ -39,7 +39,6 @@ class MailMail(models.Model):
         vals = self._force_sender(vals)
         return super(MailMail, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         vals = self._force_sender(vals)
         return super(MailMail, self).write(vals)

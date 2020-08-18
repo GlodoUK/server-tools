@@ -1,4 +1,4 @@
-from odoo import models, api, fields
+from odoo import models, fields
 
 
 class IrCron(models.Model):
@@ -10,7 +10,6 @@ class IrCron(models.Model):
         store=False,
         readonly=True)
 
-    @api.multi
     def _compute_running(self):
         self.env.cr.execute("""
             select
