@@ -1,6 +1,6 @@
 
 {
-    'version': "12.0.1.00",
+    'version': "13.0.1.0.0",
     'name': "cron_running",
     'summary': "Shows if a scheduled action is running",
     'category': "Uncategorized",

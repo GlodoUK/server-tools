@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 {
-    "version": "0.1",
+    "version": "13.0.1.0.0",
     "name": "healthcheck",
     "summary": """Healthcheck for monitoring, etc. Complementary to prometheus module.""",
     "category": "Other",
