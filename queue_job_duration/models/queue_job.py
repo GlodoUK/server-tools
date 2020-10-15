@@ -6,10 +6,11 @@ class QueueJob(models.Model):
 
     duration = fields.Float(
         compute="_compute_duration",
-        store=False
+        store=True
     )
 
     @api.multi
+    @api.depends('date_done')
     def _compute_duration(self):
         for record in self:
             if not record.date_started or not record.date_done:
