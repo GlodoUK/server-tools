@@ -29,7 +29,7 @@ class MailMailgun(http.Controller):
             return False
 
         hmac_digest = hmac.new(
-            key=bytes(api_key.value, "utf-8"),
+            key=bytes(api_key, "utf-8"),
             msg='{}{}'.format(timestamp, token).encode("utf-8"),
             digestmod=hashlib.sha256).hexdigest()
 
