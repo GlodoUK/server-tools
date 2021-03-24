@@ -22,11 +22,10 @@ class MailMailgun(http.Controller):
         if not signature:
             return False
 
-        api_key = request.env['ir.config_parameter'].sudo().search([
-            ('key', '=', 'mailgun.apikey')
-        ], limit=1)
+        icp = request.env['ir.config_parameter'].sudo()
+        api_key = icp.get_param('mailgun.webhookkey')
 
-        if not api_key or not api_key.value:
+        if not api_key:
             return False
 
         hmac_digest = hmac.new(
