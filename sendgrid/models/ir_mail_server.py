@@ -19,12 +19,6 @@ class IrMailServer(models.Model):
         required=True
     )
 
-    from_name = fields.Selection([
-        ('default', 'Odoo Default'),
-        ('email', 'No Name - Just Email Address'),
-        # ('company', 'Company'),  #  TODO: Implement
-    ], required=True, default="default")
-
     @api.model
     def send_email(
         self,
@@ -34,24 +28,18 @@ class IrMailServer(models.Model):
         *args, **kwargs
     ):
         from_method = "default"
-        from_name = "default"
 
         # Find the mail server we're using, or default to the config
 
         if mail_server_id:
             mail_server = self.sudo().browse(mail_server_id)
             from_method = mail_server.from_method
-            from_name = mail_server.from_name
         elif not smtp_server:
             mail_server = self.sudo().search([], order='sequence', limit=1)
             from_method = mail_server.from_method
-            from_name = mail_server.from_name
 
         if not from_method:
             from_method = tools.config.get('smtp_from_method', "default")
-
-        if not from_name:
-            from_method = tools.config.get('smtp_from_name', "default")
 
         icp = self.env['ir.config_parameter'].sudo()
         # default odoo catchall address
@@ -107,16 +95,10 @@ class IrMailServer(models.Model):
             email_from = "%s@%s" % (mail_alias, mail_domain)
 
         if email_from:
-            if from_name == "email":
-                message.replace_header(
-                    'From',
-                    formataddr((email_from, email_from))
-                )
-            else:
-                message.replace_header(
-                    'From',
-                    formataddr((original_email_from[0], email_from))
-                )
+            message.replace_header(
+                'From',
+                formataddr((original_email_from[0], email_from))
+            )
 
             bounce_alias = icp.get_param("mail.bounce.alias")
             if not bounce_alias:
