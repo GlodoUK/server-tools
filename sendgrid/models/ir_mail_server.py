@@ -107,15 +107,15 @@ class IrMailServer(models.Model):
             email_from = "%s@%s" % (mail_alias, mail_domain)
 
         if email_from:
-            if from_name == "default":
+            if from_name == "email":
                 message.replace_header(
                     'From',
-                    formataddr((original_email_from[0], email_from))
+                    formataddr((email_from, email_from))
                 )
             else:
                 message.replace_header(
                     'From',
-                    email_from,
+                    formataddr((original_email_from[0], email_from))
                 )
 
             bounce_alias = icp.get_param("mail.bounce.alias")
