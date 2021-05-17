@@ -1,7 +1,7 @@
 {
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.1.0",
     "name": "onchange_helper_inherits",
-    "summary": "Technical module that eases onchange spec execution. Not compatible with OCA/onchange_helper.",
+    "summary": "Technical module that eases onchange spec execution.",
     "category": "Hidden",
     "images": [],
     "application": True,
