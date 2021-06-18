@@ -1,7 +1,7 @@
 from odoo import models
 
 
-class MailThread(models.Model):
+class MailThread(models.AbstractModel):
     _inherit = "mail.thread"
 
     def _routing_create_bounce_email(self, email_from, body_html, message, **mail_values):
