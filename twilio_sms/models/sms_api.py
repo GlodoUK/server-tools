@@ -1,4 +1,5 @@
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 
 from odoo import api, models
 
@@ -9,16 +10,16 @@ class SmsApi(models.AbstractModel):
     @api.model
     def _contact_twilio_api(self, numbers, message):
         icp = self.env['ir.config_parameter'].sudo()
-        
+
         account_sid = (
             icp
-            .get_param("twilio.twilio_sid", default="")
+            .get_param("twilio_sms.sid", default="")
         )
         auth_token = (
             icp
-            .get_param("twilio.twilio_token", default="")
+            .get_param("twilio_sms.token", default="")
         )
-        
+
         send_as = icp.get_param('twilio_sms.from', default='')
 
         client = Client(account_sid, auth_token)
@@ -26,11 +27,20 @@ class SmsApi(models.AbstractModel):
         res = []
 
         for number in numbers:
-            res.append(client.messages.create(
-                body=message,
-                from_=send_as,
-                to=number
-            ))
+            try:
+                req = client.messages.create(
+                    body=message,
+                    from_=send_as,
+                    to=number
+                )
+                res.append({
+                    "res": req,
+                })
+            except TwilioRestException as e:
+                res.append({
+                    "error_code": e.code,
+                    "error_message": e.msg,
+                })
 
         return res
 
@@ -39,7 +49,7 @@ class SmsApi(models.AbstractModel):
         twilio_enabled = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("twilio.twilio_enabled", default=False)
+            .get_param("twilio_sms.enabled", default=False)
         )
 
         if not twilio_enabled:
@@ -53,7 +63,7 @@ class SmsApi(models.AbstractModel):
         twilio_enabled = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("twilio.twilio_enabled", default=False)
+            .get_param("twilio_sms.enabled", default=False)
         )
 
         if not twilio_enabled:
