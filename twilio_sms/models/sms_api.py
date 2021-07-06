@@ -19,7 +19,7 @@ class SmsApi(models.AbstractModel):
             .get_param("twilio.twilio_token", default="")
         )
         
-        from = icp.get_param('twilio_sms.from', default='')
+        send_as = icp.get_param('twilio_sms.from', default='')
 
         client = Client(account_sid, auth_token)
 
@@ -28,7 +28,7 @@ class SmsApi(models.AbstractModel):
         for number in numbers:
             res.append(client.messages.create(
                 body=message,
-                from_=from,
+                from_=send_as,
                 to=number
             ))
 
