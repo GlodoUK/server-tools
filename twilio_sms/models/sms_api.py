@@ -65,7 +65,7 @@ class SmsApi(models.AbstractModel):
             tw_res = next(
                 iter(
                     self._contact_twilio_api(
-                        message.get('number'), message.get('content')
+                        [message.get('number')], message.get('content')
                     )
                 ),
                 {}
