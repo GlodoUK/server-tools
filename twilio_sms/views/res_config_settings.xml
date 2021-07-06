@@ -46,6 +46,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <div class="m16">
+                                        <label
+                                            for="twilio_from"
+                                            class="o_form_label"
+                                        />
+                                        <div class="content-group">
+                                            <field name="twilio_from" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </xpath>
