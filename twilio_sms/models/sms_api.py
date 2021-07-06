@@ -8,16 +8,18 @@ class SmsApi(models.AbstractModel):
 
     @api.model
     def _contact_twilio_api(self, numbers, message):
+        icp = self.env['ir.config_parameter'].sudo()
+        
         account_sid = (
-            self.env["ir.config_parameter"]
-            .sudo()
+            icp
             .get_param("twilio.twilio_sid", default="")
         )
         auth_token = (
-            self.env["ir.config_parameter"]
-            .sudo()
+            icp
             .get_param("twilio.twilio_token", default="")
         )
+        
+        from = icp.get_param('twilio_sms.from', default='')
 
         client = Client(account_sid, auth_token)
 
@@ -26,7 +28,7 @@ class SmsApi(models.AbstractModel):
         for number in numbers:
             res.append(client.messages.create(
                 body=message,
-                from_=self.env.user.company_id.name,
+                from_=from,
                 to=number
             ))
 
