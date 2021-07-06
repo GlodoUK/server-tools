@@ -7,6 +7,9 @@ class ResConfigSettings(models.TransientModel):
     twilio_enabled = fields.Boolean()
     twilio_sid = fields.Char()
     twilio_token = fields.Char()
+    twilio_from = fields.Char(
+        config_parameter="twilio_sms.from",
+    )
 
     @api.model
     def get_values(self):
