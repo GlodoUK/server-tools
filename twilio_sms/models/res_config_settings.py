@@ -16,3 +16,6 @@ class ResConfigSettings(models.TransientModel):
     twilio_from = fields.Char(
         config_parameter="twilio_sms.from",
     )
+    twilio_country_code = fields.Char(
+        config_parameter="twilio_sms.default_country_code",
+    )
