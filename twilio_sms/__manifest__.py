@@ -6,6 +6,6 @@
     "website": "https://glodo.uk",
     "license": "Other proprietary",
     "depends": ["sms"],
-    "external_dependencies": {"python": ["twilio"]},
+    "external_dependencies": {"python": ["twilio", "phonenumbers"]},
     "data": ["views/res_config_settings.xml"],
 }

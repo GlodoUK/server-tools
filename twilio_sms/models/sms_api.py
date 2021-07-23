@@ -1,7 +1,8 @@
+import phonenumbers
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-from odoo import api, models
+from odoo import api, models, _
 
 
 class SmsApi(models.AbstractModel):
@@ -19,22 +20,48 @@ class SmsApi(models.AbstractModel):
             icp
             .get_param("twilio_sms.token", default="")
         )
-
+        country_code = (
+            icp
+            .get_param("twilio_sms.default_country_code", default="GB")
+        )
         send_as = icp.get_param('twilio_sms.from', default='')
 
         client = Client(account_sid, auth_token)
-
         res = []
 
         for number in numbers:
             try:
+                parsed_number = phonenumbers.parse(number, country_code)
+
+                if phonenumbers.number_type(parsed_number) not in (
+                    phonenumbers.PhoneNumberType.MOBILE,
+                    phonenumbers.PhoneNumberType.UNKNOWN
+                ):
+                    res.append({
+                        "error_code": "Invalid Number",
+                        "error_message": _(
+                            "Does not appear to be a mobile number"
+                        ),
+                    })
+                    continue
+
+                e164_formatted_number = phonenumbers.format_number(
+                    parsed_number, phonenumbers.PhoneNumberFormat.E164
+                )
+
                 req = client.messages.create(
                     body=message,
                     from_=send_as,
-                    to=number
+                    to=e164_formatted_number
                 )
+
                 res.append({
                     "res": req,
+                })
+            except phonenumbers.NumberParseException as e:
+                res.append({
+                    "error_code": e.error_type,
+                    "error_message": e._msg,
                 })
             except TwilioRestException as e:
                 res.append({
@@ -72,7 +99,7 @@ class SmsApi(models.AbstractModel):
         res = []
 
         for message in messages:
-            tw_res = next(
+            message_res = next(
                 iter(
                     self._contact_twilio_api(
                         [message.get('number')], message.get('content')
@@ -87,9 +114,11 @@ class SmsApi(models.AbstractModel):
                 # TODO add some better mappings!
                 # These need to be translated to IAP states https://www.twilio.com/docs/api/errors
                 # which can be found at https://github.com/odoo/odoo/blob/cd9c071c9357cef14635ef094a9f14fc5431956c/addons/sms/models/sms_sms.py#L18
-                'state': "error" if tw_res.get("error_code") else "success",
-                "twilio_err": tw_res.get("error_message"),
-                'credit': 0, # we used 0 odoo partner credits
+                'state': (
+                    "error" if message_res.get("error_code") else "success"
+                ),
+                "twilio_err": message_res.get("error_message"),
+                'credit': 0,  # we used 0 odoo partner credits
             })
 
         return res
