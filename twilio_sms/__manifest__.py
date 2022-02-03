@@ -3,7 +3,7 @@
     "name": "twilio_sms",
     "summary": "Twilio SMS Gateway",
     "author": "Glodo",
-    "website": "https://github.com/OCA/server-tools",
+    "website": "https://github.com/glodouk/server-tools",
     "license": "Other proprietary",
     "depends": ["sms"],
     "external_dependencies": {"python": ["twilio", "phonenumbers"]},
