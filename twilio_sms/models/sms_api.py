@@ -131,6 +131,6 @@ class SmsApi(models.AbstractModel):
             .get_param("twilio_sms.enabled", default=False)
         )
         if twilio_enabled:
-            res.update(twilio_error_codes_dict)
+            res.update(twilio_error_codes_dict())
 
         return res
