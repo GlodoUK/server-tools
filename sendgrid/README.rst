@@ -22,3 +22,4 @@ Usage
 - Install
 - Setup SMTP as out of the box, either through configuration file or through UI
 - Setup Sendgrid inbound parse to point to `https://odoo/sendgrid/inbound/databasename`
+
