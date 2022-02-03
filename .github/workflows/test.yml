@@ -8,9 +8,15 @@ on:
   pull_request:
     branches:
       - "15.0*"
+    paths:
+      - '**.py'
+      - '**.xml'
   push:
     branches:
       - "15.0*"
+    paths:
+      - '**.py'
+      - '**.xml'
 
 jobs:
   test:
