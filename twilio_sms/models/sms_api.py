@@ -61,7 +61,7 @@ class SmsApi(models.AbstractModel):
             except TwilioRestException as e:
                 res.append(
                     {
-                        "error_code": e.code,
+                        "error_code": f"twilio:{e.code}",
                         "error_message": e.msg,
                     }
                 )
