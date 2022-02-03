@@ -1,9 +1,9 @@
 {
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "name": "twilio_sms",
     "summary": "Twilio SMS Gateway",
-    "author": "Glodo UK",
-    "website": "https://glodo.uk",
+    "author": "Glodo",
+    "website": "https://github.com/OCA/server-tools",
     "license": "Other proprietary",
     "depends": ["sms"],
     "external_dependencies": {"python": ["twilio", "phonenumbers"]},
