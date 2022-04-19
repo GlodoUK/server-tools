@@ -7,9 +7,10 @@ Adds support for inbound email via SendGrid Inbound Parse.
 Changelog
 =========
 
-  - ⚠️ Under 15.0 support for "from address" rewriting has been removed, this is due to Odoo natively supporting this feature. Therefore `from_method` and `smtp_from_method` have been removed. You are expected to now either:
-    - Use an intermediary SMTP server to rewrite the from address using SRS
-    - Use the built in functionality - by setting the ir.config_parameters `mail.default.from` and `mail.catchall.domain`
+- ⚠️ Under 15.0 support for "from address" rewriting has been removed, this is due to Odoo natively supporting this feature. Therefore `from_method` and `smtp_from_method` have been removed. You are expected to now either:
+
+  - Use an intermediary SMTP server to rewrite the from address using SRS
+  - Use the built in functionality - by setting the ir.config_parameters `mail.default.from` and `mail.catchall.domain`
 
 Usage
 =====
