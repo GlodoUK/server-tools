@@ -12,7 +12,7 @@ from odoo.tests.common import TransactionCase, tagged
 TEST_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Turkmenistan.svg/320px-Flag_of_Turkmenistan.svg.png"  # noqa: B950
 
 
-@tagged("at_install", "post_install")
+@tagged("post_install", "-at_install")
 class TestAttachmentFields(TransactionCase):
     def _test_end(self, test_record):
         self.assertEqual(test_record.web_icon_data, TEST_URL)
