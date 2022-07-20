@@ -7,7 +7,7 @@ from odoo import models
 # based on fields.Binary.write method
 def my_write(self, records, value):
     if not self.attachment:
-        return records.write(value)
+        return super().write(records, value)
 
     # em230418: somewhere url is converted to bytes() object. Here we convert it back
     if type(value) is bytes:
