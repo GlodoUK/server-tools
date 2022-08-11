@@ -15,13 +15,16 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _find_field_attachment(cls, env, field, obj):
-        while True:
+        related = env[obj._name]._fields[field].related
+
+        while related:
+            for i in related.split("."):
+                if isinstance(obj[i], bytes):
+                    field = i
+                    break
+                obj = obj[i]
+                field = i
             related = env[obj._name]._fields[field].related
-            if related and len(related) >= 2:
-                obj = obj[related[0]]
-                field = related[1]
-            else:
-                break
 
         model = obj._name
         is_attachment = env[model]._fields[field].attachment
