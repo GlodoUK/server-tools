@@ -22,9 +22,9 @@ class IrHttp(models.AbstractModel):
                 if isinstance(obj[i], bytes):
                     field = i
                     break
-                related_obj = obj[i]
+                obj = obj[i]
                 field = i
-            related = env[related_obj._name]._fields[field].related
+            related = env[obj._name]._fields[field].related
 
         model = obj._name
         is_attachment = env[model]._fields[field].attachment
