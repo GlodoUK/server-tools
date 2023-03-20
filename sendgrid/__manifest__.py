@@ -13,5 +13,5 @@
     "external_dependencies": {"python": [], "bin": []},
     "auto_install": False,
     "installable": True,
-    "data": ['views/ir_mail_server.xml'],
+    "data": [],
 }
