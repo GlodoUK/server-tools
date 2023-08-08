@@ -32,11 +32,10 @@ class SmsApi(models.AbstractModel):
                     phonenumbers.PhoneNumberType.MOBILE,
                     phonenumbers.PhoneNumberType.UNKNOWN,
                 ):
-                    err = _("Does not appear to be a mobile number")
                     res.append(
                         {
                             "error_code": "Invalid Number",
-                            "error_message": err,
+                            "error_message": _("Does not appear to be a mobile number"),
                         }
                     )
                     continue
