@@ -19,7 +19,7 @@ class SmsApi(models.AbstractModel):
         country_code = icp.get_param("twilio_sms.default_country_code", default="GB")
         send_as = icp.get_param("twilio_sms.from", default="")
         create_log = icp.get_param("twilio_sms.log", default=False)
-        model_log = self.env["twilio.sms.log"].sudo()
+        model_log = self.env["twilio_sms.log"].sudo()
 
         client = Client(account_sid, auth_token)
         res = []
