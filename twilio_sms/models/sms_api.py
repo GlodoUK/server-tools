@@ -18,6 +18,8 @@ class SmsApi(models.AbstractModel):
         auth_token = icp.get_param("twilio_sms.token", default="")
         country_code = icp.get_param("twilio_sms.default_country_code", default="GB")
         send_as = icp.get_param("twilio_sms.from", default="")
+        create_log = icp.get_param("twilio_sms.log", default=False)
+        model_log = self.env["twilio.sms.log"].sudo()
 
         client = Client(account_sid, auth_token)
         res = []
@@ -30,10 +32,11 @@ class SmsApi(models.AbstractModel):
                     phonenumbers.PhoneNumberType.MOBILE,
                     phonenumbers.PhoneNumberType.UNKNOWN,
                 ):
+                    err = _("Does not appear to be a mobile number")
                     res.append(
                         {
                             "error_code": "Invalid Number",
-                            "error_message": _("Does not appear to be a mobile number"),
+                            "error_message": err,
                         }
                     )
                     continue
@@ -65,6 +68,24 @@ class SmsApi(models.AbstractModel):
                         "error_message": e.msg,
                     }
                 )
+
+        if create_log:
+            log_data = []
+            for (number, result) in zip(numbers, res):
+                is_err = "error_message" in result
+                log_data.append(
+                    {
+                        "to": number,
+                        "body": message,
+                        "account_sid": account_sid,
+                        "api_response": result.get("error_message")
+                        if is_err
+                        else result.get("res"),
+                        "state": "error" if is_err else "done",
+                    }
+                )
+            if log_data:
+                model_log.create(log_data)
 
         return res
 
