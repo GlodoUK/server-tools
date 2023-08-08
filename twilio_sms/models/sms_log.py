@@ -24,7 +24,7 @@ class TwilioSmsLog(models.Model):
         required=True,
     )
 
-    @api.autovacuum()
+    @api.autovacuum
     def _gc_log(self):
         self._cr.execute(
             """
