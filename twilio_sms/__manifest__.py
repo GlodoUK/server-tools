@@ -8,6 +8,7 @@
     "depends": ["sms"],
     "external_dependencies": {"python": ["twilio", "phonenumbers"]},
     "data": [
+        "security/ir.model.access.csv",
         "views/res_config_settings.xml",
         "views/sms_log.xml",
     ],
