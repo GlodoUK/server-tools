@@ -23,6 +23,14 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="twilio_log" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="twilio_log" class="o_form_label" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_right_pane">
                             <div class="m16">
                                 <label for="twilio_sid" class="o_form_label" />
