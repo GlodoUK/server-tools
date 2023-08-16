@@ -1,5 +1,5 @@
 {
-    "version": "15.0.1.1.0",
+    "version": "15.0.2.0.0",
     "name": "twilio_sms",
     "summary": "Twilio SMS Gateway",
     "author": "Glo Networks",
