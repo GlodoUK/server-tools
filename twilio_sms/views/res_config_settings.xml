@@ -64,6 +64,16 @@
                                         />
                                     <field name="twilio_country_code" />
                                 </div>
+
+                                <div class="row mt16">
+                                    <label
+                                            class="o_form_label col-lg-3 o_light_label"
+                                            for="twilio_log"
+                                            string="Enable Logging"
+                                        />
+                                    <field name="twilio_log" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
